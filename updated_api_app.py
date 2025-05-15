@@ -26,21 +26,26 @@ with st.sidebar:
 def call_claude_api(api_key, prompt):
     headers = {
         "x-api-key": api_key,
-        "anthropic-version": "2023-06-01",  # Adding the required header
+        "anthropic-version": "2023-06-01",
         "content-type": "application/json"
     }
     
+    # Updated request body format
     data = {
-        "model": "claude-2.0",
-        "prompt": f"\n\nHuman: {prompt}\n\nAssistant:",
-        "max_tokens_to_sample": 1000,
-        "temperature": 0
+        "model": "claude-3-7-sonnet-20250219",  # Updated model name
+        "messages": [
+            {"role": "user", "content": prompt}
+        ],
+        "max_tokens": 1000  # Adjust as needed
     }
     
     response = requests.post(
-        "https://api.anthropic.com/v1/complete",
+        "https://api.anthropic.com/v1/messages",
         headers=headers,
         json=data
+    )
+    
+    return response.json())
     )
     
     if response.status_code == 200:
