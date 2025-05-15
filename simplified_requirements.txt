@@ -1,4 +1,0 @@
-streamlit
-pandas
-plotly
-anthropic==0.5.0
